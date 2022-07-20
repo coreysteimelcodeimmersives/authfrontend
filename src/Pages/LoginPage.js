@@ -21,7 +21,7 @@ const LoginPage = (isAuthLoading, setIsAuthLoading) => {
       <br />
       <label>Password: </label>
       <input
-        type="text"
+        type="hidden"
         value={password}
         onChange={(e) => {
           setPassword(e.target.value);
