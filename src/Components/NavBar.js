@@ -1,7 +1,14 @@
 import React from "react";
 import { Outlet, Link } from "react-router-dom";
+import { getUserToken, logoutUser } from "../Auth";
 
-const NavBar = () => {
+const NavBar = (isAuthLoading, setIsAuthLoading) => {
+  const [userToken, setUserToken] = useState("");
+
+  useEffect(() => {
+    const localUserToken = getUserToken();
+    setUserToken(localUserToken);
+  }, [isAuthLoading]);
   return (
     <div>
       <nav>
@@ -10,13 +17,31 @@ const NavBar = () => {
           <li>
             <Link to="/">Home</Link>
           </li>
-          <li>
-            <Link to="/login">Login</Link>
-          </li>
-          <li>
-            <Link to="/registration">Registration</Link>
-          </li>
+          {!userToken && (
+            <>
+              <li>
+                <Link to="/login">Login</Link>
+              </li>
+              <li>
+                <Link to="/registration">Registration</Link>
+              </li>
+            </>
+          )}
         </ul>
+        {userToken && (
+          <>
+            <span>
+              <strong>You Are Logged In</strong>
+            </span>
+            <button
+              onClick={() => {
+                logoutUser();
+              }}
+            >
+              Logout
+            </button>
+          </>
+        )}
       </nav>
       <Outlet />
     </div>
