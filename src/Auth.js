@@ -40,5 +40,3 @@ export const getUserToken = () => {
     localStorage.getItem(process.env.REACT_APP_TOKEN_HEADER_KEY)
   );
 };
-
-export default Auth;

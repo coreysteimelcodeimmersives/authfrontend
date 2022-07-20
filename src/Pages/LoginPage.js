@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 const LoginPage = (isAuthLoading, setIsAuthLoading) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   return (
     <div>
@@ -33,7 +34,6 @@ const LoginPage = (isAuthLoading, setIsAuthLoading) => {
           const isUserLoggedIn = await loginUser(username, password);
           if (isUserLoggedIn) {
             setIsAuthLoading(false);
-            const navigate = useNavigate();
             navigate("/");
           }
         }}
