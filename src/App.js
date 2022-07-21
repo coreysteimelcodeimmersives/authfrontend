@@ -23,7 +23,7 @@ function App() {
           >
             <Route index element={<HomePage />} />
             <Route
-              path="loging"
+              path="/login"
               element={
                 <LoginPage
                   isAuthLoading={isAuthLoading}
@@ -32,7 +32,7 @@ function App() {
               }
             />
             <Route
-              path="registration"
+              path="/registration"
               element={
                 <RegistrationPage
                   isAuthLoading={isAuthLoading}

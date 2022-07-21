@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { Outlet, Link } from "react-router-dom";
 import { getUserToken, logoutUser } from "../Auth";
 
-const NavBar = (isAuthLoading, setIsAuthLoading) => {
+const NavBar = ({ isAuthLoading, setIsAuthLoading }) => {
   const [userToken, setUserToken] = useState("");
 
   useEffect(() => {
@@ -34,9 +34,14 @@ const NavBar = (isAuthLoading, setIsAuthLoading) => {
             <span>
               <strong>You Are Logged In</strong>
             </span>
+            <br />
             <button
-              onClick={() => {
-                logoutUser();
+              onClick={async () => {
+                setIsAuthLoading(true);
+                const logoutSuccess = await logoutUser();
+                if (logoutSuccess) {
+                  setIsAuthLoading(false);
+                }
               }}
             >
               Logout

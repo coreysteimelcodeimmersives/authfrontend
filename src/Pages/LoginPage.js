@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import { loginUser } from "../Auth";
 import { useNavigate } from "react-router-dom";
 
-const LoginPage = (isAuthLoading, setIsAuthLoading) => {
+const LoginPage = ({ isAuthLoading, setIsAuthLoading }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [invalidMssg, setInvalidMss] = useState("");
   const navigate = useNavigate();
 
   return (
@@ -21,7 +22,7 @@ const LoginPage = (isAuthLoading, setIsAuthLoading) => {
       <br />
       <label>Password: </label>
       <input
-        type="hidden"
+        type="password"
         value={password}
         onChange={(e) => {
           setPassword(e.target.value);
@@ -32,14 +33,19 @@ const LoginPage = (isAuthLoading, setIsAuthLoading) => {
         onClick={async () => {
           setIsAuthLoading(true);
           const isUserLoggedIn = await loginUser(username, password);
+          setIsAuthLoading(false);
           if (isUserLoggedIn) {
-            setIsAuthLoading(false);
             navigate("/");
           }
+          setInvalidMss(
+            "Your username and/or password is incorrect. Please try again."
+          );
         }}
       >
         Login
       </button>
+      <br />
+      <div>{invalidMssg}</div>
     </div>
   );
 };
