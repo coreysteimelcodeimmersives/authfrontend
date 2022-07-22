@@ -21,9 +21,7 @@ export const loginUser = async (username, password) => {
     body: JSON.stringify({ username: username, password: password }),
   });
   const responseJSON = await response.json();
-  console.log(responseJSON);
   if (responseJSON.success) {
-    console.log("setting local storage");
     localStorage.setItem(
       process.env.REACT_APP_TOKEN_HEADER_KEY,
       JSON.stringify(responseJSON.token)
